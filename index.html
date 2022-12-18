@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Image Slider With Next And Previous Buttons</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+<div class="slider">
+    <div class="slide active">
+        <img src="img/img3.webp" alt="">
+        <div class="info">
+            <h2>Bivouac</h2>
+            <p>A bivouac, also known as a bivvy, is a very rudimentary type of shelter. It does not offer a completely enclosed shelter and in some cases, may involve simply sleeping in the open. When in the open, climbers use a sleeping bag and cover it with a bivouac sack (or bivvy bag). A bivouac sack is a lightweight, waterproof liner that provides an additional layer of protection against inclement weather and cold temperatures. Climbers may also set up a bivouac between a crack in nearby rocks or a ditch formed in the snow, both of these offer more shelter. This shelter is often chosen because it allows climbers to carry a reduced-weight pack. A bivouac does have the added risk of climbers being more exposed to dangerous weather.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="img/img4.webp" alt="">
+        <div class="info">
+            <h2>Snow Cave</h2>
+            <p>Snow caves are preferred over tents by some climbers, where weather conditions permit. These shelters are known to be warmer than tents and have only 2 requirements: snow and a snow shovel. Climbers can build a snow cave in a short amount of time, digging out an area under at least 4 feet of snow. The inner temperature is usually around 32° fahrenheit and for added warmth, climbers use waterproof, lightweight bivvy bags and foam sleeping pads. Another type of snow cave is an igloo, although this requires a very specific construction technique and should only be attempted by those with experience.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="img/img1.webp" alt="">
+        <div class="info">
+            <h2>Tent</h2>
+            <p>Tents consist of a pole framework, covered in a tarp or some other material and held by ropes and anchors. These shelters are set up at the moment it will be used and are easily portable. Simpler designs require just a thin tarp, while more durable designs incorporate heavier materials that can hold up against dangerous weather conditions. In extreme weather, tents may be set up behind mounds of snow or rock, which act as windbreaks and help protect the shelter. Tents are the most frequently used type of shelter.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="img/img5.webp" alt="">
+        <div class="info">
+            <h2>Hut</h2>
+            <p>Huts may be well-developed or rustic shelters, located in rural areas at differing elevations along a mountain. These shelters are designed around a shared dining area with private sleeping sleeping quarters. These sleeping rooms are stocked with a bed, pillows, and blankets. Climbers bring a sleeping bag. Like base camp, huts allow a trail to be divided into several days worth of hikes and make it possible for climbers to travel with a reduced pack. During warmer seasons, many huts have full-time staff or volunteers that manage the daily activities necessary to keep the shelter running. In some locations, climbers have the option to purchase snacks, meals, and drinks.</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="img/img2.webp" alt="">
+        <div class="info">
+            <h2>Base Camp</h2>
+            <p>Base camps are most frequently used by mountain climbers who are trying to reach the summit of very high mountains. These shelters are often stocked with necessary supplies and provide climbers with a safe location for acclimatizing to extreme altitudes. When climbs to the summit take multiple days, several base camps may be located along the trails. Some of the most well-known base camps are located on Mount Everest.</p>
+        </div>
+    </div>
+    <div class="navigation">
+        <i class="fas fa-chevron-left prev-btn"></i>
+        <i class="fas fa-chevron-right next-btn"></i>
+    </div>
+    <div class="navigation-visibility">
+        <div class="slide-icon active"></div>
+        <div class="slide-icon"></div>
+        <div class="slide-icon"></div>
+        <div class="slide-icon"></div>
+        <div class="slide-icon"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    const slider = document.querySelector(".slider");
+    const nextBtn = document.querySelector(".next-btn");
+    const prevBtn = document.querySelector(".prev-btn");
+    const slides = document.querySelectorAll(".slide");
+    const slideIcons = document.querySelectorAll(".slide-icon");
+    const numberOfSlides = slides.length;
+    var slideNumber = 0;
+
+    //image slider next button
+    nextBtn.addEventListener("click", () => {
+        slides.forEach((slide) => {
+            slide.classList.remove("active");
+        });
+        slideIcons.forEach((slideIcon) => {
+            slideIcon.classList.remove("active");
+        });
+
+        slideNumber++;
+
+        if(slideNumber > (numberOfSlides - 1)){
+            slideNumber = 0;
+        }
+
+        slides[slideNumber].classList.add("active");
+        slideIcons[slideNumber].classList.add("active");
+    });
+
+    //image slider previous button
+    prevBtn.addEventListener("click", () => {
+        slides.forEach((slide) => {
+            slide.classList.remove("active");
+        });
+        slideIcons.forEach((slideIcon) => {
+            slideIcon.classList.remove("active");
+        });
+
+        slideNumber--;
+
+        if(slideNumber < 0){
+            slideNumber = numberOfSlides - 1;
+        }
+
+        slides[slideNumber].classList.add("active");
+        slideIcons[slideNumber].classList.add("active");
+    });
+
+    //image slider autoplay
+    var playSlider;
+
+    var repeater = () => {
+        playSlider = setInterval(function(){
+            slides.forEach((slide) => {
+                slide.classList.remove("active");
+            });
+            slideIcons.forEach((slideIcon) => {
+                slideIcon.classList.remove("active");
+            });
+
+            slideNumber++;
+
+            if(slideNumber > (numberOfSlides - 1)){
+                slideNumber = 0;
+            }
+
+            slides[slideNumber].classList.add("active");
+            slideIcons[slideNumber].classList.add("active");
+        }, 4000);
+    }
+    repeater();
+
+    //stop the image slider autoplay on mouseover
+    slider.addEventListener("mouseover", () => {
+        clearInterval(playSlider);
+    });
+
+    //start the image slider autoplay again on mouseout
+    slider.addEventListener("mouseout", () => {
+        repeater();
+    });
+</script>
+
+</body>
+</html>
